@@ -3,8 +3,13 @@ package classes;
 public class Editora {
     private int codigo;
     private String nomeEditora;
-    private Number tel;
+    private int foneEditora;
 
+    public Editora(int codigo, String nomeEditora, int foneEditora) {
+        this.codigo = codigo;
+        this.nomeEditora = nomeEditora;
+        this.foneEditora = foneEditora;
+    }
 
     public int getCodigo() {
         return this.codigo;
@@ -22,12 +27,17 @@ public class Editora {
         this.nomeEditora = nomeEditora;
     }
 
-    public Number getTel() {
-        return this.tel;
+    public int getFoneEditora() {
+        return this.foneEditora;
     }
 
-    public void setTel(Number tel) {
-        this.tel = tel;
+    public void setFoneEditora(int foneEditora) {
+        this.foneEditora = foneEditora;
+    }
+
+    @Override
+    public String toString() {
+        return "Código:" + this.codigo + "; \nNome da editora: " + this.nomeEditora + "; \nTelefone da editora: " + this.foneEditora;
     }
 
 }
