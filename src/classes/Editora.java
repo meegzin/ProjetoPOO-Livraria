@@ -1,22 +1,22 @@
 package classes;
 
 public class Editora {
-    private int codigo;
+    private int codigoEditora;
     private String nomeEditora;
     private int foneEditora;
 
-    public Editora(int codigo, String nomeEditora, int foneEditora) {
-        this.codigo = codigo;
+    public Editora(int codigoEditora, String nomeEditora, int foneEditora) {
+        this.codigoEditora = codigoEditora;
         this.nomeEditora = nomeEditora;
         this.foneEditora = foneEditora;
     }
 
-    public int getCodigo() {
-        return this.codigo;
+    public int getCodigoEditora() {
+        return this.codigoEditora;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setCodigoEditora(int codigoEditora) {
+        this.codigoEditora = codigoEditora;
     }
 
     public String getNomeEditora() {
@@ -37,7 +37,7 @@ public class Editora {
 
     @Override
     public String toString() {
-        return "Código:" + this.codigo + "; \nNome da editora: " + this.nomeEditora + "; \nTelefone da editora: " + this.foneEditora;
+        return "Código:" + this.codigoEditora + "; \nNome da editora: " + this.nomeEditora + "; \nTelefone da editora: " + this.foneEditora;
     }
 
 }
