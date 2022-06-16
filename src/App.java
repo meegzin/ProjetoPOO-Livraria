@@ -1,17 +1,24 @@
 import java.util.Scanner;
 
+import operador.OperadorLivro;
+import operador.OperadorCliente;
+import operador.OperadorCompras;
 import operador.OperadorEditora;
 
 public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int opMenu = 0, opAdmin = 0, opEditora = 0, opLivro = 0;
+        double valorTotal = 0;
 
         String cPswAdmin;
         String pswAdmin = "admin";
-        OperadorEditora operador = new OperadorEditora();
-
-        // /*---------------------------------------------------------*/
+        boolean loginAcess = true;
+        OperadorEditora operadorEditora = new OperadorEditora();
+        OperadorLivro operadorLivro = new OperadorLivro();
+        OperadorCompras operadorCompras = new OperadorCompras();
+        OperadorCliente operadorCliente = new OperadorCliente();
+        /*---------------------------------------------------------*/
         do {
             System.out.println(
                     "\n\nBem Vindo a Livraria Digital! \n Escolha o acesso desejado:\n\n[0] SAIR\n[1] CLIENTE\n[2] ADMINISTRADOR");
@@ -19,7 +26,77 @@ public class App {
             opMenu = sc.nextInt();
             switch (opMenu) {
                 case 0 -> System.out.println("\nEncerrando...");
-                case 1 -> System.out.println("\nEncerrando...");
+                case 1 -> {
+                    do {
+
+                        sc.nextLine();
+
+                        System.out.println("\n== Olá, seja bem-vindo esses são os livros disponíveis == ");
+
+                        operadorLivro.exibirLivro();
+
+                        System.out.println("\nEscolha o livro desejado(Insira o ISBN):");
+                        System.out.print("-> ");
+                        double isbn = sc.nextDouble();
+                        boolean validarISBN = operadorLivro.validarISBN(isbn);
+
+                        if (validarISBN) {
+
+                            System.out.println("Quantos livros deseja comprar?");
+                            System.out.print("-> ");
+                            int qtdLivro = sc.nextInt();
+
+                            valorTotal += qtdLivro * operadorLivro.buscarPreco(isbn);
+
+                            System.out.println("\nValor das suas compras : " + "R$ " + valorTotal);
+                        } else {
+                            System.out.println("ISBN inválido!");
+                        }
+                        System.out.println();
+
+                        System.out.println("\nDeseja comprar mais livros?\n[0] Não\n[1] Sim");
+                        System.out.print("-> ");
+                        opMenu = sc.nextInt();
+
+                        if (opMenu == 0) {
+                            do {
+                                System.out.println("[0] Sair sem comprar \n[1] Login \n[2] Cadastrar-se");
+                                System.out.print("-> ");
+                                opMenu = sc.nextInt();
+
+                                if (opMenu == 0) {
+                                    System.out.println("\nSaindo...");
+                                    opMenu = 3;
+
+                                } else if (opMenu == 1) {
+                                    do {
+                                        loginAcess = operadorCliente.loginUsuario();
+                                    } while (loginAcess == false);
+
+                                } else if (opMenu == 2) {
+                                    System.out.println("\nCadastro de novo usuário");
+                                    do {
+                                        loginAcess = operadorCliente.loginUsuario();
+                                        System.out.println("tentar novamente ? [QUALQUER TECLA] sim [0] não");
+                                        System.out.print("-> ");
+                                        opMenu = sc.nextInt();
+
+                                        if (opMenu == 0) {
+                                            loginAcess = false;
+                                        } else {
+                                            loginAcess = true;
+                                        }
+                                    } while (loginAcess == false);
+                                } else {
+                                    System.out.println("Voltando as compras !!");
+                                }
+                            } while (opMenu < 3);
+                        }
+
+                    } while (opMenu == 0);
+                    valorTotal = 0;
+                    operadorCompras.limparCarrinho();
+                }
                 case 2 -> {
                     sc.nextLine();
                     System.out.println("Insira a senha de administrador: ");
@@ -33,49 +110,49 @@ public class App {
                         switch (opAdmin) {
                             case 0 -> System.out.println("\nEncerrando...");
                             case 1 -> {
-                                do{
-                                System.out.println("""
-                                        [0] SAIR
-                                        [1] Adicionar editora
-                                        [2] Deletar editora
-                                        [3] Editar editora
-                                        [4] Filtar editora
-                                        [5] Exibir todas as editoras
+                                do {
+                                    System.out.println("""
+                                            [0] SAIR
+                                            [1] Adicionar editora
+                                            [2] Deletar editora
+                                            [3] Editar editora
+                                            [4] Filtar editora
+                                            [5] Exibir todas as editoras
 
-                                        Escolha uma opção:\040""");
-                                opEditora = sc.nextInt();
-                                switch (opEditora) {
-                                    case 0 -> System.out.println("\nEncerrando...");
-                                    case 1 -> operador.adicionarEditora();
-                                    case 2 -> operador.removerEditora();
-                                    case 3 -> {
-                                        System.out.print("""
-                                                [0] SAIR
-                                                [1] Alterar codigo
-                                                [2] Alterar nome
-                                                [3] Alterar telefone
+                                            Escolha uma opção:\040""");
+                                    opEditora = sc.nextInt();
+                                    switch (opEditora) {
+                                        case 0 -> System.out.println("\nEncerrando...");
+                                        case 1 -> operadorEditora.adicionarEditora();
+                                        case 2 -> operadorEditora.removerEditora();
+                                        case 3 -> {
+                                            System.out.print("""
+                                                    [0] SAIR
+                                                    [1] Alterar codigo
+                                                    [2] Alterar nome
+                                                    [3] Alterar telefone
 
-                                                Escolha uma opção:\040""");
-                                        opEditora = sc.nextInt();
+                                                    Escolha uma opção:\040""");
+                                            opEditora = sc.nextInt();
 
-                                        switch (opEditora) {
-                                            case 0 -> System.out.println("\nEncerrando...");
-                                            case 1 -> operador.editarCodigo();
-                                            case 2 -> operador.editarNome();
-                                            case 3 -> operador.editarFone();
-                                            default -> System.out.println("\nOpção inválida!");
+                                            switch (opEditora) {
+                                                case 0 -> System.out.println("\nEncerrando...");
+                                                case 1 -> operadorEditora.editarCodigo();
+                                                case 2 -> operadorEditora.editarNome();
+                                                case 3 -> operadorEditora.editarFone();
+                                                default -> System.out.println("\nOpção inválida!");
+                                            }
                                         }
-                                    }
-                                    case 4 -> {
-                                        System.out.println("Insira o codigo de consulta: ");
-                                        opEditora = sc.nextInt();
-                                        operador.buscarCodigo(opEditora);
-                                    }
+                                        case 4 -> {
+                                            System.out.println("Insira o codigo de consulta: ");
+                                            opEditora = sc.nextInt();
+                                            operadorEditora.buscarCodigo(opEditora);
+                                        }
 
-                                    case 5 -> operador.exibirEditoras();
-                                    default -> System.out.println("\nOpção inválida!");
-                                }
-                            }while(opEditora != 0);
+                                        case 5 -> operadorEditora.exibirEditoras();
+                                        default -> System.out.println("\nOpção inválida!");
+                                    }
+                                } while (opEditora != 0);
 
                             }
 
@@ -91,6 +168,57 @@ public class App {
                                         Escolha uma opção:\040""");
                                 opLivro = sc.nextInt();
 
+                                switch (opLivro) {
+                                    case 0 -> System.out.println("\nEncerrando...");
+                                    case 1 -> operadorLivro.adicioniarLivro();
+                                    case 2 -> operadorLivro.removerLivro();
+                                    case 3 -> {
+                                        System.out.print("""
+                                                [0] SAIR
+                                                [1] Alterar ISBN
+                                                [2] Alterar titulo
+                                                [3] Alterar autor
+                                                [4] Alterar preço
+                                                [5] Alterar cod. editora
+                                                [6] Alterar acabamento
+
+                                                Escolha uma opção:\040""");
+                                        opLivro = sc.nextInt();
+
+                                        switch (opLivro) {
+                                            case 0 -> System.out.println("\nEncerrando...");
+                                            case 1 -> operadorLivro.editarISBN();
+                                            case 2 -> operadorLivro.editarTitulo();
+                                            case 3 -> operadorLivro.editarAutores();
+                                            case 4 -> operadorLivro.editarPreco();
+                                            case 5 -> operadorLivro.editarCodigoEditora();
+                                            case 6 -> operadorLivro.editarAcabamentos();
+                                            default -> System.out.println("\nOpção inválida!");
+                                        }
+                                    }
+                                    case 4 -> {
+                                        System.out.print("""
+                                                [0] SAIR
+                                                [1] Procurar por ISBN
+                                                [2] Procurar por título
+
+                                                Escolha uma opção:\040""");
+
+                                        switch (opLivro) {
+                                            case 1 -> {
+                                                System.out.println("Insira o ISBN do livro");
+                                                operadorLivro.buscarISBN(sc.nextDouble());
+                                            }
+                                            case 2 -> {
+                                                System.out.println("Insira o titulo do livro");
+                                                operadorLivro.buscarTitulo(sc.nextLine());
+                                            }
+                                            default -> System.out.println("\nOpção inválida!");
+                                        }
+                                    }
+                                    case 5 -> operadorLivro.exibirLivro();
+                                }
+
                             }
                             default -> System.out.println("\nOpção inválida!");
                         }
@@ -102,5 +230,6 @@ public class App {
                 default -> System.out.println("\nOpção inválida!");
             }
         } while (opMenu != 0);
+        sc.close();
     }
 }

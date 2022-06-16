@@ -1,46 +1,52 @@
 package classes;
 
 public class Compras {
-    private int indentificador;
-    private int quantidade;
-    private int preco;
+    private double ISBNLivro;
+    private double quantidade;
+    private double preco;
+    private double precoTotal;
 
-
-    public Compras(int indentificador, int quantidade, int preco) {
-        this.indentificador = indentificador;
+    public Compras(double ISBNLivro, double quantidade, double preco, double precoTotal) {
+        this.ISBNLivro = ISBNLivro;
         this.quantidade = quantidade;
+        this.preco = preco;
+        this.precoTotal = preco * quantidade;
+    }
+
+    public Compras(double ISBN){
+        this.ISBNLivro = ISBN;
+    }
+
+    public double getISBNLivro() {
+        return this.ISBNLivro;
+    }
+
+    public void setISBNLivro(double ISBNLivro) {
+        this.ISBNLivro = ISBNLivro;
+    }
+
+    public double getQuantidade() {
+        return this.quantidade;
+    }
+
+    public void setQuantidade(double quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public double getPreco() {
+        return this.preco;
+    }
+
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 
-
-    public int getIndentificador() {
-        return indentificador;
+    public double getPrecoTotal() {
+        return this.precoTotal;
     }
 
-
-    public void setIndentificador(int indentificador) {
-        this.indentificador = indentificador;
+    public void setPrecoTotal(double precoTotal) {
+        this.precoTotal = precoTotal;
     }
 
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
-
-    public int getPreco() {
-        return preco;
-    }
-
-
-    public void setPreco(int preco) {
-        this.preco = preco;
-    }
-
-    
 }

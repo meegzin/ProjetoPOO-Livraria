@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import operador.OperadorEditora;
 import classes.Livro;
 
 public class OperadorLivro {
@@ -15,7 +14,7 @@ public class OperadorLivro {
         livro = new ArrayList<>();
     }
 
-    public Livro buscarISBN(int ISBNBuscado) {
+    public Livro buscarISBN(Double ISBNBuscado) {
         for (int c = 0; c < this.livro.size(); c++) {
             if (this.livro.get(c).getISBN() == ISBNBuscado) {
                 System.out.println(this.livro.get(c));
@@ -35,6 +34,24 @@ public class OperadorLivro {
         return null;
     }
 
+    public boolean validarISBN(Double ISBNBuscado) {
+        for (int c = 0; c < this.livro.size(); c++) {
+            if (this.livro.get(c).getISBN() == ISBNBuscado) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Double buscarPreco(Double ISBN){
+        for (int c = 0; c < this.livro.size(); c++) {
+            if (this.livro.get(c).getISBN() == ISBN) {
+                return this.livro.get(c).getPrecoLivro();
+            }
+        }
+        return null;
+    }
+
     public void exibirLivro() {
         for (int c = 0; c < this.livro.size(); c++) {
             System.out.println(this.livro.get(c));
@@ -46,7 +63,7 @@ public class OperadorLivro {
 
         System.out.print("\nDigite o ISBN do livro: ");
         int ISBN = sc.nextInt();
-        if (buscarISBN(ISBN) != null) {
+        if (buscarISBN((double) ISBN) != null) {
             System.out.println("\nLivro já cadastrada anteriormente!");
             return;
         }
@@ -89,7 +106,8 @@ public class OperadorLivro {
                 System.out.println("Escolha uma opção valida");
         } while ((tipoAcabamentoLivro == 0) && (tipoAcabamentoLivro < 1) || (tipoAcabamentoLivro > 3));
 
-        Livro novoLivro = new Livro(ISBN, tituloLivro, autoresLivro, precoLivro, acabamentoLivro, codigoBuscado);
+        Livro novoLivro = new Livro((double) ISBN, tituloLivro, autoresLivro, precoLivro, acabamentoLivro,
+                codigoBuscado);
         this.livro.add(novoLivro);
         System.out.println("\nLivro cadastrado com sucesso!");
     }
@@ -98,7 +116,7 @@ public class OperadorLivro {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("\nDigite o ISBN do livro: ");
-        int ISBNAtual = sc.nextInt();
+        double ISBNAtual = sc.nextDouble();
         Livro encontrada = buscarISBN(ISBNAtual);
         if (encontrada == null) {
             System.out.println("\nLivro não cadastrado!");
@@ -106,7 +124,7 @@ public class OperadorLivro {
         }
 
         System.out.print("Digite o novo ISBN do livro: ");
-        int novoISBN = sc.nextInt();
+        double novoISBN = sc.nextDouble();
         if (buscarISBN(novoISBN) != null) {
             System.out.println("\nEditora já cadastrada anteriormente!");
             return;
@@ -121,7 +139,7 @@ public class OperadorLivro {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("\nDigite o ISBN do livro: ");
-        int ISBNAtual = sc.nextInt();
+        double ISBNAtual = sc.nextDouble();
         Livro encontrada = buscarISBN(ISBNAtual);
         if (encontrada == null) {
             System.out.println("\nLivro não cadastrado!");
@@ -142,7 +160,7 @@ public class OperadorLivro {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("\nDigite o ISBN do livro: ");
-        int ISBNAtual = sc.nextInt();
+        double ISBNAtual = sc.nextDouble();
         Livro encontrada = buscarISBN(ISBNAtual);
         if (encontrada == null) {
             System.out.println("\nLivro não cadastrado!");
@@ -161,7 +179,7 @@ public class OperadorLivro {
         int tipoAcabamentoLivro;
 
         System.out.print("\nDigite o ISBN do livro: ");
-        int ISBNAtual = sc.nextInt();
+        double ISBNAtual = sc.nextDouble();
         Livro encontrada = buscarISBN(ISBNAtual);
         if (encontrada == null) {
             System.out.println("\nLivro não cadastrado!");
@@ -191,14 +209,14 @@ public class OperadorLivro {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("\nDigite o ISBN do livro: ");
-        int ISBNAtual = sc.nextInt();
+        double ISBNAtual = sc.nextDouble();
         Livro encontrada = buscarISBN(ISBNAtual);
         if (encontrada == null) {
             System.out.println("\nLivro não cadastrado!");
             return;
         } else {
             System.out.print("Digite o novo valor do livro: ");
-            float novoValor = sc.nextFloat();
+            double novoValor = sc.nextFloat();
             encontrada.setPrecoLivro(novoValor);
             System.out.println("\nALTERADO COM SUCESSO!!");
         }
@@ -208,7 +226,7 @@ public class OperadorLivro {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("\nDigite o ISBN do livro: ");
-        int ISBNAtual = sc.nextInt();
+        double ISBNAtual = sc.nextDouble();
         Livro encontrada = buscarISBN(ISBNAtual);
         if (encontrada == null) {
             System.out.println("\nLivro não cadastrado!");
@@ -231,7 +249,7 @@ public class OperadorLivro {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("\nDigite o ISBN do livro: ");
-        int ISBNAtual = sc.nextInt();
+        double ISBNAtual = sc.nextDouble();
         Livro encontrada = buscarISBN(ISBNAtual);
         if (encontrada == null) {
             System.out.println("\nLivro não cadastrado!");
@@ -239,6 +257,10 @@ public class OperadorLivro {
         } else {
             this.livro.remove(encontrada);
             System.out.println("\nLivro removido com sucesso!");
+            sc.close();
         }
+
+       
+        
     }
 }
