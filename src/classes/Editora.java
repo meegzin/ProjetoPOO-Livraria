@@ -37,7 +37,7 @@ public class Editora {
 
     @Override
     public String toString() {
-        return "Código:" + this.codigoEditora + "; \nNome da editora: " + this.nomeEditora + "; \nTelefone da editora: " + this.foneEditora;
+        return "Código: " + this.codigoEditora + "\nNome da editora: " + this.nomeEditora + "\nTelefone da editora: " + this.foneEditora + "\n------------------------------------------";
     }
 
 }

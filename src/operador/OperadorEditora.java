@@ -126,6 +126,7 @@ public class OperadorEditora {
             encontrada.setFoneEditora(novoFone);
             System.out.println("\nTelefone alterado com sucesso!");
         }
+        
     }
 
     public void removerEditora() {
@@ -141,5 +142,6 @@ public class OperadorEditora {
             this.editoras.remove(encontrada);
             System.out.println("\nEditora removida com sucesso!");
         }
+        
     }
 }

@@ -1,17 +1,15 @@
 package classes;
 
 public class Livro {
-    private int ISBN;
+    private Double ISBN;
     private String tituloLivro;
     private String autoresLivro;
-    private float precoLivro;
+    private double precoLivro;
     private String acabamentoLivro;
     private int codigoEditora;
+    
 
-
-
-
-    public Livro(int iSBN, String tituloLivro, String autoresLivro, float precoLivro, String acabamentoLivro,
+    public Livro(Double iSBN, String tituloLivro, String autoresLivro, float precoLivro, String acabamentoLivro,
             int codigoEditora) {
         ISBN = iSBN;
         this.tituloLivro = tituloLivro;
@@ -21,11 +19,11 @@ public class Livro {
         this.codigoEditora = codigoEditora;
     }
 
-    public int getISBN() {
+    public Double getISBN() {
         return this.ISBN;
     }
 
-    public void setISBN(int ISBN) {
+    public void setISBN(Double ISBN) {
         this.ISBN = ISBN;
     }
 
@@ -45,11 +43,11 @@ public class Livro {
         this.autoresLivro = autoresLivro;
     }
 
-    public float getPrecoLivro() {
+    public Double getPrecoLivro() {
         return this.precoLivro;
     }
 
-    public void setPrecoLivro(float precoLivro) {
+    public void setPrecoLivro(Double precoLivro) {
         this.precoLivro = precoLivro;
     }
 
@@ -69,5 +67,9 @@ public class Livro {
         this.codigoEditora = codigoEditora;
     }
 
+@Override
+    public String toString() {
+        return "ISBN: " + this.codigoEditora + "\nTitulo: " + this.tituloLivro + "\nAutores: " + this.autoresLivro + "\nPreço: " + this.precoLivro + "\nAcabamento: " + this.acabamentoLivro + "\nCodigo da editora: " + this.codigoEditora + "\n------------------------------------------";
+    }
 
 }
