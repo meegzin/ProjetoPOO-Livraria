@@ -15,7 +15,7 @@ public class OperadorEditora {
 
     public Editora buscarCodigo(int codigoBuscado) {
         for (int c = 0; c < this.editoras.size(); c++) {
-            if (this.editoras.get(c).getCodigo() == codigoBuscado) {
+            if (this.editoras.get(c).getCodigoEditora() == codigoBuscado) {
                 System.out.println(this.editoras.get(c));
                 return this.editoras.get(c);
             }
@@ -51,6 +51,25 @@ public class OperadorEditora {
         System.out.println("\nEditora cadastrada com sucesso!");
     }
 
+    public void adicionarEditora(int codigo) {
+        Scanner sc = new Scanner(System.in);
+        if (buscarCodigo(codigo) != null) {
+            System.out.println("\nEditora já cadastrada anteriormente!");
+            return;
+        }
+
+        sc.nextLine();
+        System.out.print("Digite o nome da editora: ");
+        String nome = sc.nextLine();
+
+        System.out.print("Digite o telefone da editora: ");
+        int fone = sc.nextInt();
+
+        Editora novaEditora = new Editora(codigo, nome, fone);
+        this.editoras.add(novaEditora);
+        System.out.println("\nEditora cadastrada com sucesso!");
+    }
+
     public void editarCodigo() {
         Scanner sc = new Scanner(System.in);
 
@@ -68,7 +87,7 @@ public class OperadorEditora {
             System.out.println("\nEditora já cadastrada anteriormente!");
             return;
         } else {
-            encontrada.setCodigo(novoCodigo);
+            encontrada.setCodigoEditora(novoCodigo);
             System.out.println("\nCódigo alterado com sucesso!");
         }
 
