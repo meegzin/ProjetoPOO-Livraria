@@ -11,7 +11,7 @@ public class Livro {
 
     public Livro(Double iSBN, String tituloLivro, String autoresLivro, float precoLivro, String acabamentoLivro,
             int codigoEditora) {
-        ISBN = iSBN;
+        this.ISBN = iSBN;
         this.tituloLivro = tituloLivro;
         this.autoresLivro = autoresLivro;
         this.precoLivro = precoLivro;
@@ -69,7 +69,7 @@ public class Livro {
 
 @Override
     public String toString() {
-        return "ISBN: " + this.codigoEditora + "\nTitulo: " + this.tituloLivro + "\nAutores: " + this.autoresLivro + "\nPreço: " + this.precoLivro + "\nAcabamento: " + this.acabamentoLivro + "\nCodigo da editora: " + this.codigoEditora + "\n------------------------------------------";
+        return "ISBN: " + this.ISBN + "\nTitulo: " + this.tituloLivro + "\nAutores: " + this.autoresLivro + "\nPreço: " + this.precoLivro + "\nAcabamento: " + this.acabamentoLivro + "\nCodigo da editora: " + this.codigoEditora + "\n------------------------------------------";
     }
 
 }
