@@ -51,14 +51,12 @@ public class OperadorEditora {
         System.out.println("\nEditora cadastrada com sucesso!");
     }
 
-    public void adicionarEditora(int codigo) {
+    public void adicionarEditoraCodigo(int codigo) {
         Scanner sc = new Scanner(System.in);
         if (buscarCodigo(codigo) != null) {
             System.out.println("\nEditora já cadastrada anteriormente!");
             return;
         }
-
-        sc.nextLine();
         System.out.print("Digite o nome da editora: ");
         String nome = sc.nextLine();
 

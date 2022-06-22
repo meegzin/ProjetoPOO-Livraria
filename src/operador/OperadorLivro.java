@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import classes.Livro;
+import operador.OperadorEditora;
 
 public class OperadorLivro {
     private List<Livro> livro;
@@ -43,7 +44,7 @@ public class OperadorLivro {
         return false;
     }
 
-    public Double buscarPreco(Double ISBN){
+    public Double buscarPreco(Double ISBN) {
         for (int c = 0; c < this.livro.size(); c++) {
             if (this.livro.get(c).getISBN() == ISBN) {
                 return this.livro.get(c).getPrecoLivro();
@@ -58,34 +59,17 @@ public class OperadorLivro {
         }
     }
 
-    public void adicioniarLivro() {
+    public void adicioniarLivro(double ISBN, int codigoBuscado) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("\nDigite o ISBN do livro: ");
-        int ISBN = sc.nextInt();
-        if (buscarISBN((double) ISBN) != null) {
-            System.out.println("\nLivro já cadastrada anteriormente!");
-            return;
-        }
-
-        System.out.print("\nDigite o codigo da editora do livro: ");
-        int codigoBuscado = sc.nextInt();
-        if (editora.buscarCodigo(codigoBuscado) != null) {
-            System.out.println("\nEditora Encontrada");
-
-        } else {
-            editora.adicionarEditora(codigoBuscado);
-        }
-
-        sc.nextLine();
+        System.out.println("");
         System.out.print("Digite o titulo do livro: ");
         String tituloLivro = sc.nextLine();
 
-        sc.nextLine();
         System.out.print("Digite o autor do livro: ");
         String autoresLivro = sc.nextLine();
 
-        System.out.print("Digite o autor do livro: ");
+        System.out.print("Digite o preço do livro: ");
         float precoLivro = sc.nextFloat();
 
         String acabamentoLivro = "";
@@ -97,7 +81,7 @@ public class OperadorLivro {
             tipoAcabamentoLivro = sc.nextInt();
 
             if (tipoAcabamentoLivro == 1)
-                acabamentoLivro = "brocura";
+                acabamentoLivro = "brochura";
             else if (tipoAcabamentoLivro == 2)
                 acabamentoLivro = "encadernado";
             else if (tipoAcabamentoLivro == 3)
@@ -106,7 +90,8 @@ public class OperadorLivro {
                 System.out.println("Escolha uma opção valida");
         } while ((tipoAcabamentoLivro == 0) && (tipoAcabamentoLivro < 1) || (tipoAcabamentoLivro > 3));
 
-        Livro novoLivro = new Livro((double) ISBN, tituloLivro, autoresLivro, precoLivro, acabamentoLivro,
+        System.out.println(ISBN + " " + codigoBuscado);
+        Livro novoLivro = new Livro(ISBN, tituloLivro, autoresLivro, precoLivro, acabamentoLivro,
                 codigoBuscado);
         this.livro.add(novoLivro);
         System.out.println("\nLivro cadastrado com sucesso!");
@@ -260,7 +245,5 @@ public class OperadorLivro {
             sc.close();
         }
 
-       
-        
     }
 }

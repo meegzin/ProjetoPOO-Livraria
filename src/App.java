@@ -157,71 +157,93 @@ public class App {
                             }
 
                             case 2 -> {
-                                System.out.print("""
-                                        [0] SAIR
-                                        [1] Adicionar livro
-                                        [2] Deletar livro
-                                        [3] Editar livro
-                                        [4] Filtar livro
-                                        [5] Exibir todos os livros
+                                do {
+                                    System.out.print("""
+                                            [0] SAIR
+                                            [1] Adicionar livro
+                                            [2] Deletar livro
+                                            [3] Editar livro
+                                            [4] Filtar livro
+                                            [5] Exibir todos os livros
 
-                                        Escolha uma opção:\040""");
-                                opLivro = sc.nextInt();
+                                            Escolha uma opção:\040""");
+                                    opLivro = sc.nextInt();
 
-                                switch (opLivro) {
-                                    case 0 -> System.out.println("\nEncerrando...");
-                                    case 1 -> operadorLivro.adicioniarLivro();
-                                    case 2 -> operadorLivro.removerLivro();
-                                    case 3 -> {
-                                        System.out.print("""
-                                                [0] SAIR
-                                                [1] Alterar ISBN
-                                                [2] Alterar titulo
-                                                [3] Alterar autor
-                                                [4] Alterar preço
-                                                [5] Alterar cod. editora
-                                                [6] Alterar acabamento
-
-                                                Escolha uma opção:\040""");
-                                        opLivro = sc.nextInt();
-
-                                        switch (opLivro) {
-                                            case 0 -> System.out.println("\nEncerrando...");
-                                            case 1 -> operadorLivro.editarISBN();
-                                            case 2 -> operadorLivro.editarTitulo();
-                                            case 3 -> operadorLivro.editarAutores();
-                                            case 4 -> operadorLivro.editarPreco();
-                                            case 5 -> operadorLivro.editarCodigoEditora();
-                                            case 6 -> operadorLivro.editarAcabamentos();
-                                            default -> System.out.println("\nOpção inválida!");
-                                        }
-                                    }
-                                    case 4 -> {
-                                        System.out.print("""
-                                                [0] SAIR
-                                                [1] Procurar por ISBN
-                                                [2] Procurar por título
-
-                                                Escolha uma opção:\040""");
-
-                                        switch (opLivro) {
-                                            case 1 -> {
-                                                System.out.println("Insira o ISBN do livro");
-                                                operadorLivro.buscarISBN(sc.nextDouble());
+                                    switch (opLivro) {
+                                        case 0 -> System.out.println("\nEncerrando...");
+                                        case 1 -> {
+                                            System.out.print("\nDigite o ISBN do livro: ");
+                                            Double ISBN = sc.nextDouble();
+                                            if (operadorLivro.buscarISBN(ISBN) != null) {
+                                                System.out.println("\nLivro já cadastrada anteriormente!");
+                                                return;
                                             }
-                                            case 2 -> {
-                                                System.out.println("Insira o titulo do livro");
-                                                operadorLivro.buscarTitulo(sc.nextLine());
-                                            }
-                                            default -> System.out.println("\nOpção inválida!");
-                                        }
-                                    }
-                                    case 5 -> operadorLivro.exibirLivro();
-                                }
 
+                                            System.out.print("\nDigite o codigo da editora do livro: ");
+                                            int codigoBuscado = sc.nextInt();
+                                            if (operadorEditora.buscarCodigo(codigoBuscado) != null) {
+                                                System.out.println("\nEditora Encontrada");
+
+                                            } else {
+                                                System.out.println(
+                                                        "Editora não encontrada, por favor cadastre a editora");
+                                                operadorEditora.adicionarEditoraCodigo(codigoBuscado);
+                                            }
+                                            System.out.println(ISBN + " " + codigoBuscado);
+                                            operadorLivro.adicioniarLivro(ISBN, codigoBuscado);
+                                        }
+                                        case 2 -> operadorLivro.removerLivro();
+                                        case 3 -> {
+                                            System.out.print("""
+                                                    [0] SAIR
+                                                    [1] Alterar ISBN
+                                                    [2] Alterar titulo
+                                                    [3] Alterar autor
+                                                    [4] Alterar preço
+                                                    [5] Alterar cod. editora
+                                                    [6] Alterar acabamento
+
+                                                    Escolha uma opção:\040""");
+                                            opLivro = sc.nextInt();
+
+                                            switch (opLivro) {
+                                                case 0 -> System.out.println("\nEncerrando...");
+                                                case 1 -> operadorLivro.editarISBN();
+                                                case 2 -> operadorLivro.editarTitulo();
+                                                case 3 -> operadorLivro.editarAutores();
+                                                case 4 -> operadorLivro.editarPreco();
+                                                case 5 -> operadorLivro.editarCodigoEditora();
+                                                case 6 -> operadorLivro.editarAcabamentos();
+                                                default -> System.out.println("\nOpção inválida!");
+                                            }
+                                        }
+                                        case 4 -> {
+                                            System.out.print("""
+                                                    [0] SAIR
+                                                    [1] Procurar por ISBN
+                                                    [2] Procurar por título
+
+                                                    Escolha uma opção:\040""");
+
+                                            switch (opLivro) {
+                                                case 1 -> {
+                                                    System.out.println("Insira o ISBN do livro");
+                                                    operadorLivro.buscarISBN(sc.nextDouble());
+                                                }
+                                                case 2 -> {
+                                                    System.out.println("Insira o titulo do livro");
+                                                    operadorLivro.buscarTitulo(sc.nextLine());
+                                                }
+                                                default -> System.out.println("\nOpção inválida!");
+                                            }
+                                        }
+                                        case 5 -> operadorLivro.exibirLivro();
+                                    }
+                                } while (opLivro != 0);
                             }
                             default -> System.out.println("\nOpção inválida!");
                         }
+
                     } else {
                         System.out.println("Senha incorreta! ");
                     }
